@@ -10,4 +10,6 @@ export default class Constants {
   public static readonly TOKEN = 'token';
 
   public static readonly AUTHENTICATION_REQUIRED = 'Autenticação necessária.';
+
+  public static readonly VEHICLES_PAGINATED_API_ROUTE = 'vehicles/paginated';
 }
