@@ -17,4 +17,10 @@ export class NavbarComponent {
   navigateVehiclesSearch(): void {
     this.router.navigate([Constants.VEHICLES_SEARCH_ROUTE]);
   }
+
+  logout(): void {
+    localStorage.removeItem(Constants.TOKEN);
+
+    this.router.navigate([Constants.LOGIN_ROUTE]);
+  }
 }

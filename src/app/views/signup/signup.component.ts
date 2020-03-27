@@ -6,36 +6,37 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 import Constants from '../../constants';
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
   form: FormGroup;
 
-  disableLoginButton: boolean;
+  disableSignupButton: boolean;
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       username: [null],
-      password: [null]
+      password: [null],
+      name: [null]
     });
   }
 
-  async login(): Promise<void> {
-    this.disableLoginButton = true;
+  async signup(): Promise<void> {
+    this.disableSignupButton = true;
 
     try {
-      const { token } = await this.httpClient.post<{ token: string }>(environment.linkApi + Constants.LOGIN_API_ROUTE, this.form.value).toPromise();
+      await this.httpClient.post<void>(environment.linkApi + Constants.NEW_USER_API_ROUTE, this.form.value).toPromise();
 
-      /* Armazena token gerado caso login realizado com sucesso */
-      localStorage.setItem(Constants.TOKEN, token);
+      this.snackBar.open(Constants.USER_SUCCESSFULLY_CREATED, '', {
+        duration: Constants.SNACK_BAR_DURATION
+      });
 
-      this.router.navigate([Constants.VEHICLES_SEARCH_ROUTE]);
+      this.router.navigate([Constants.LOGIN_ROUTE]);
     } catch (error) {
       const { message } = error?.error;
 
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
       });
     }
 
-    this.disableLoginButton = false;
+    this.disableSignupButton = false;
   }
 
   navigateSignup(): void {

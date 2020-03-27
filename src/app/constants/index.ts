@@ -1,5 +1,5 @@
 export default class Constants {
-  public static readonly LOGIN_ROUTE = 'auth/login';
+  public static readonly LOGIN_API_ROUTE = 'auth/login';
 
   public static readonly VEHICLES_SEARCH_ROUTE = 'vehicles/search';
 
@@ -24,4 +24,12 @@ export default class Constants {
   public static readonly VEHICLE_SUCCESSFULLY_CREATED = 'Vehicle successfully created.';
 
   public static readonly NEW_VEHICLE_ROUTE = 'vehicles/new';
+
+  public static readonly SIGNUP_ROUTE = 'signup';
+
+  public static readonly LOGIN_ROUTE = 'login';
+
+  public static readonly NEW_USER_API_ROUTE = 'users';
+
+  public static readonly USER_SUCCESSFULLY_CREATED = 'User successfully created.';
 }

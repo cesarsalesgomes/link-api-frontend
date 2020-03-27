@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       duration: Constants.SNACK_BAR_DURATION
     });
 
-    this.router.navigate([Constants.LOGIN_ROUTE]);
+    this.router.navigate([Constants.LOGIN_API_ROUTE]);
 
     return false;
   }
