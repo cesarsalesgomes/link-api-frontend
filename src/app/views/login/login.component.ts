@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       /* Armazena token gerado caso login realizado com sucesso */
       localStorage.setItem(Constants.TOKEN, token);
 
-      this.router.navigate([Constants.VEHICLES_ROUTE]);
+      this.router.navigate([Constants.VEHICLES_SEARCH_ROUTE]);
     } catch (error) {
       const { message } = error?.error;
 

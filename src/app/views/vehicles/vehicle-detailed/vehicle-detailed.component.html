@@ -1,0 +1,97 @@
+<div class="container d-flex justify-content-center">
+  <div *ngIf="loading; else loadingBlock">
+    <div class="row mt-3">
+      <mat-spinner diameter="70" class="mat-display-3"></mat-spinner>
+    </div>
+  </div>
+  <ng-template #loadingBlock>
+    <div *ngIf="vehicle; else vehicleBlock" class="vehicle-form">
+      <div class="row my-3">
+        <div class="col d-flex justify-content-between align-items-center">
+          <span
+            ><span class="mat-h1 clickable" (click)="navigateVehiclesSearch()"
+              >Vehicles /
+            </span>
+            <span class="mat-h3">{{ idVehicle }}</span>
+          </span>
+          <i class="material-icons clickable" (click)="deleteVehicle()">
+            delete
+          </i>
+        </div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="updateVehicle()">
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Vehicle</mat-label>
+              <input matInput formControlName="vehicle" required />
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Brand</mat-label>
+              <input matInput formControlName="brand" required />
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Year</mat-label>
+              <input matInput type="number" formControlName="year" required />
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Description</mat-label>
+              <textarea
+                matInput
+                rows="3"
+                cols="40"
+                formControlName="description"
+                required
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Created</mat-label>
+              <input
+                matInput
+                value="{{
+                  vehicle.created | date: 'dd/MM/yyyy HH:mm:ss':'pt-BR'
+                }}"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field [style.fontSize.px]="16" class="w-100">
+              <mat-label>Updated</mat-label>
+              <input
+                matInput
+                [value]="vehicle.updated | date: 'dd/MM/yyyy HH:mm:ss':'pt-BR'"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-12 d-flex justify-content-end">
+            <button
+              mat-raised-button
+              type="submit"
+              [disabled]="form.invalid || fetching"
+              class="full-width mt-1"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ng-template #vehicleBlock>
+      <div class="row d-flex justify-content-center mt-3">
+        <span class="mat-display-2">
+          Vehicle not found
+        </span>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

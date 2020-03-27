@@ -14,6 +14,13 @@ export interface Vehicle {
   updated: Date;
 }
 
+export interface VehicleDTO {
+  vehicle: string;
+  brand: string;
+  year: number;
+  description: string;
+}
+
 export interface VehiclesPaginatedResponse {
   vehicles: Vehicle[];
   total: number;
@@ -35,6 +42,24 @@ export class VehiclesService {
           params
         }
       )
+      .toPromise();
+  }
+
+  async getVehicle(id: string): Promise<Vehicle> {
+    return this.http
+      .get<Vehicle>(environment.linkApi + Constants.VEHICLES_API_ROUTE + id)
+      .toPromise();
+  }
+
+  async updateVehicle(id: string, vehicle: VehicleDTO): Promise<Vehicle> {
+    return this.http
+      .put<Vehicle>(environment.linkApi + Constants.VEHICLES_API_ROUTE + id, vehicle)
+      .toPromise();
+  }
+
+  async deleteVehicle(id: string): Promise<void> {
+    return this.http
+      .delete<void>(environment.linkApi + Constants.VEHICLES_API_ROUTE + id)
       .toPromise();
   }
 }
