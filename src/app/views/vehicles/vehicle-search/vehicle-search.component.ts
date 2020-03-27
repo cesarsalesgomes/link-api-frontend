@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import Constants from '../../../constants';
 import { VehiclesService, Vehicle, VehiclesPaginatedResponse } from '../vehicles.service';
 
@@ -23,23 +24,32 @@ export class VehicleSearchComponent implements OnInit {
 
   loadingVehicles: boolean;
 
-  constructor(private vehicleService: VehiclesService, private router: Router, private snackBar: MatSnackBar) { }
+  form: FormGroup;
+
+  constructor(private vehicleService: VehiclesService, private router: Router, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      vehicle: [null],
+      brand: [null],
+      year: [null],
+      description: [null]
+    });
+  }
 
   async ngOnInit(): Promise<void> {
-    await this.fetchingVehicles(this.pageIndex, this.pageSize);
+    await this.searchVehicles();
   }
 
   async pageEvent(event: PageEvent): Promise<void> {
-    await this.fetchingVehicles(event.pageIndex, event.pageSize);
+    await this.searchVehicles(event.pageIndex, event.pageSize);
   }
 
-  private async fetchingVehicles(pageIndex: number, pageSize: number): Promise<void> {
+  async searchVehicles(pageIndex = this.pageIndex, pageSize = this.pageSize): Promise<void> {
     let res: VehiclesPaginatedResponse;
 
     this.loadingVehicles = true;
 
     try {
-      res = await this.vehicleService.getVehiclesPaginated(pageIndex, pageSize);
+      res = await this.vehicleService.getVehiclesPaginated(pageIndex, pageSize, this.form.value);
 
       this.total = res.total;
       this.vehicles = res.vehicles;

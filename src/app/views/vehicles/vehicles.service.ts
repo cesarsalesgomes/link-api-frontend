@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -30,21 +31,6 @@ export interface VehiclesPaginatedResponse {
 export class VehiclesService {
   constructor(private http: HttpClient) { }
 
-  async getVehiclesPaginated(pageIndex: number, pageSize: number): Promise<VehiclesPaginatedResponse> {
-    const params = new HttpParams()
-      .set('pageIndex', String(pageIndex))
-      .set('pageSize', String(pageSize));
-
-    return this.http
-      .get<VehiclesPaginatedResponse>(
-        environment.linkApi + Constants.VEHICLES_PAGINATED_API_ROUTE,
-        {
-          params
-        }
-      )
-      .toPromise();
-  }
-
   async getVehicle(id: string): Promise<Vehicle> {
     return this.http
       .get<Vehicle>(environment.linkApi + Constants.VEHICLES_API_ROUTE + id)
@@ -66,6 +52,24 @@ export class VehiclesService {
   async createVehicle(vehicle: VehicleDTO): Promise<Vehicle> {
     return this.http
       .post<Vehicle>(environment.linkApi + Constants.VEHICLES_API_ROUTE, vehicle)
+      .toPromise();
+  }
+
+  async getVehiclesPaginated(pageIndex: number, pageSize: number, vehicleDTO: VehicleDTO): Promise<VehiclesPaginatedResponse> {
+    let fromString = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
+
+    for (const [key, value] of Object.entries(vehicleDTO)) {
+      if (value) { fromString += `&${key}=${value}`; }
+    }
+    const params = new HttpParams({ fromString });
+
+    return this.http
+      .get<VehiclesPaginatedResponse>(
+        environment.linkApi + Constants.VEHICLES_PAGINATED_API_ROUTE,
+        {
+          params
+        }
+      )
       .toPromise();
   }
 }
