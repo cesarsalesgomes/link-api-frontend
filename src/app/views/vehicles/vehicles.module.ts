@@ -15,10 +15,11 @@ import { VehiclesComponent } from './vehicles.component';
 import { VehiclesService } from './vehicles.service';
 import { VehicleDetailedComponent } from './vehicle-detailed/vehicle-detailed.component';
 import { VehicleSearchComponent } from './vehicle-search/vehicle-search.component';
+import { VehicleNewComponent } from './vehicle-new/vehicle-new.component';
 
 
 @NgModule({
-  declarations: [VehiclesComponent, NavbarComponent, VehicleDetailedComponent, VehicleSearchComponent],
+  declarations: [VehiclesComponent, NavbarComponent, VehicleDetailedComponent, VehicleSearchComponent, VehicleNewComponent],
   imports: [
     CommonModule,
     VehiclesRoutingModule,

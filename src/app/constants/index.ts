@@ -20,4 +20,8 @@ export default class Constants {
   public static readonly VEHICLE_SUCCESSFULLY_DELETED = 'Vehicle successfully deleted.';
 
   public static readonly VEHICLES_ROUTE = 'vehicles/';
+
+  public static readonly VEHICLE_SUCCESSFULLY_CREATED = 'Vehicle successfully created.';
+
+  public static readonly NEW_VEHICLE_ROUTE = 'vehicles/new';
 }

@@ -62,4 +62,10 @@ export class VehiclesService {
       .delete<void>(environment.linkApi + Constants.VEHICLES_API_ROUTE + id)
       .toPromise();
   }
+
+  async createVehicle(vehicle: VehicleDTO): Promise<Vehicle> {
+    return this.http
+      .post<Vehicle>(environment.linkApi + Constants.VEHICLES_API_ROUTE, vehicle)
+      .toPromise();
+  }
 }

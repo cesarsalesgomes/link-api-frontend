@@ -63,7 +63,9 @@ export class VehicleDetailedComponent implements OnInit {
         duration: Constants.SNACK_BAR_DURATION
       });
     } catch (error) {
-      this.snackBar.open(Constants.UNEXPECTED_ERROR, '', {
+      const { message } = error?.error;
+
+      this.snackBar.open(message || Constants.UNEXPECTED_ERROR, '', {
         duration: Constants.SNACK_BAR_DURATION
       });
     }

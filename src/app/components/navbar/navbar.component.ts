@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import Constants from '../../constants';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
+  constructor(private router: Router) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  navigateNewVehicle(): void {
+    this.router.navigate([Constants.NEW_VEHICLE_ROUTE]);
   }
 
+  navigateVehiclesSearch(): void {
+    this.router.navigate([Constants.VEHICLES_SEARCH_ROUTE]);
+  }
 }
